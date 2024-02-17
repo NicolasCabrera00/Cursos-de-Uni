@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %} Cambiar datos de curso {% endblock %}
+
+{% block body %}
+
+<center>
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4" >
+    <h2>Editar curso</h2>
+    <!-- clase card de boostrap -->
+    <div class="card">
+        <div class="card-body">
+            <!-- FORMULARIO -->
+            <form action='/guardarEdicion/' method="POST" >{% csrf_token %}
+                
+                <br>
+                    <div class="form-group">
+                        <!-- INPUT DE CODIGO -->
+                        <div >
+                            <input 
+                            type="text"
+                            id="txtCodigo"
+                            name="txtCodigo"
+                            class="form-control"
+                            value="{{codigo}}"
+                            readonly
+                            >
+                        </div>
+                </div>
+
+                    <!-- INPUT NOMBRE -->
+                <br>
+                    <div class="form-group">
+                        <div>
+                            <input
+                            type="text"
+                            id="txtNombre"
+                            name="txtNombre"
+                            maxlength="50"
+                            placeholder="Nuevo nombre"
+                            class="form-control"
+                            value="{{curso}}"
+                            required
+                            >
+                        </div>
+                    </div>
+                <br>
+                    <div class="form-group">
+                        <!-- INPUT DE NOTA -->
+                        <div>
+                            <input 
+                            type="text"
+                            id="txtNota"
+                            name="txtNota"
+                            minlength="1"
+                            maxlength="9"
+                            class="form-control"
+                            placeholder="Nueva nota "
+                            required
+                            >
+                        </div>
+                    </div>
+                <br>
+                <!-- Boton de envio -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+</center>
+
+{% endblock %}

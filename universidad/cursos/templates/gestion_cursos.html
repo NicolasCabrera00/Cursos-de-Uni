@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+<!--  titulo de la pagina -->
+{% block title %}
+    Gestion de cursos
+{% endblock %}
+
+
+{% block body %}
+<div class="row">
+    <!-- Divido la pagina en 4 partes -->
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4" >
+        {% if messages %}
+            {% for msj in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{ msj }}</strong> 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+
+        {% endif %}
+        <h2>Gestion de cursos</h2>
+    <!-- clase card de boostrap -->
+    <div class="card">
+        <div class="card-body">
+            <!-- FORMULARIO -->
+            <form action='/registrarCurso/' method="POST" >{% csrf_token %}
+                
+                <br>
+                    <div class="form-group">
+                        <!-- INPUT DE CODIGO -->
+                        <div >
+                            <input 
+                            type="text"
+                            id="txtCodigo"
+                            name="txtCodigo"
+                            maxlength="6"
+                            placeholder="Codigo"
+                            class="form-control"
+                            required
+                            >
+                        </div>
+                </div>
+
+                    <!-- INPUT NOMBRE -->
+                <br>
+                    <div class="form-group">
+                        <div>
+                            <input
+                            type="text"
+                            id="txtNombre"
+                            name="txtNombre"
+                            maxlength="50"
+                            placeholder="Nombre"
+                            class="form-control"
+                            required
+                            >
+                        </div>
+                    </div>
+                <br>
+                    <div class="form-group">
+                        <!-- INPUT DE NOTA -->
+                        <div>
+                            <input 
+                            type="text"
+                            id="txtNota"
+                            name="txtNota"
+                            minlength="1"
+                            maxlength="9"
+                            value="1"
+                            class="form-control"
+                            placeholder="Nota final"
+                            required
+                            >
+                        </div>
+                    </div>
+                <br>
+                <!-- Boton de envio -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- Divido la pantalla en 8 -->
+<div class="col-sm- 12 col-md-6 col-lg-8 col-xl-8" >
+    <h1>Listado de cursos</h1>
+
+        <!-- Pantalla responsiva -->
+        <div class="table-responsive" >
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Codigo</td>
+                        <td>Nombre</td>
+                        <td>Nota</td>
+                        <td colspan="2"><center>Accion</center></td>
+                    </tr>   
+                </thead>
+                <!-- Cuerpo de la tabla -->
+                <tbody>
+
+                    {% for i in curso %}
+                    <tr>
+                        <td>
+                           {{forloop.counter}}
+                        </td>
+                        <td>{{i.codigo}}</td>
+                        <td>{{i.nombre}}</td>
+                        <td>{{i.nota}}</td>
+                        <td><a href="/editar/{{ i.codigo }}"" class="btn btn-info">Editar</td>
+                        <td><a href="/eliminar/{{ i.codigo }}"" class="btn btn-danger btnElimnar">Eliminar</td>
+                      
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+</div>
+
+
+
+
+{% endblock %}
